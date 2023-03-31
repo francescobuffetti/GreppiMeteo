@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GreppiMeteo.Views.SettingsPage"
+             xmlns:viewmodels="clr-namespace:GreppiMeteo.ViewModels"
+             xmlns:texts="clr-namespace:GreppiMeteo.Texts"
+             Title="SettingsPage"
+             NavigationPage.HasNavigationBar="false"
+             BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}">
+
+    <ContentPage.BindingContext>
+        <viewmodels:MainPageViewModel x:Name="model"/>
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout>
+            <Border
+             BackgroundColor="Transparent"
+            Stroke="Transparent"
+             HorizontalOptions="Start">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoBackCommand}" />
+                </Border.GestureRecognizers>
+
+                <Image
+                            HeightRequest="40"
+                            HorizontalOptions="Center"
+                            Margin="10"
+                            Source="svg_circle_arrow_backward_outline.png"
+                            VerticalOptions="CenterAndExpand"
+                            WidthRequest="40" />
+            </Border>
+            <Label Padding="10" 
+            Text="{x:Static texts:TextsResource.DefaultLoc}"
+               FontSize="20"
+               HorizontalOptions="Center"
+               FontAttributes="Bold"
+               TextColor="{AppThemeBinding Light={StaticResource TextColorLight}, Dark={StaticResource TextColorDark}}"/>
+
+            <Border BackgroundColor="{AppThemeBinding Light={StaticResource BorderSearchLight}, Dark={StaticResource BorderSearchDark}}" 
+                Padding="10"
+                HeightRequest="70" WidthRequest="300" 
+                Stroke="{AppThemeBinding Light={StaticResource BorderStrokeLight}, Dark={StaticResource BorderStrokeDark}}" StrokeThickness="2">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="8,8,8,8" />
+                </Border.StrokeShape>
+                <SearchBar Placeholder="{x:Static texts:TextsResource.PlaceHolder}"
+                       TextColor="{AppThemeBinding Light={StaticResource TextColorLight}, Dark={StaticResource TextColorDark}}"
+                       CancelButtonColor="{AppThemeBinding Light={StaticResource CancelButtonColorLight},Dark={StaticResource CancelButtonColorDark}}"
+                       PlaceholderColor="{AppThemeBinding Light={StaticResource PlaceholderColorLight},Dark={StaticResource PlaceholderColorDark}}"
+                       BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundSearchLight},Dark={StaticResource BackgroundSearchDark}}"
+                   HorizontalOptions="Center"
+               x:Name="localita"
+               SearchButtonPressed="localita_SearchButtonPressed"/>
+            </Border>
+
+
+            <Border BackgroundColor="{AppThemeBinding Light={StaticResource BorderBackgroundLight}, Dark={StaticResource BorderBackgroundDark}}" 
+                Margin="20" 
+                Stroke="{AppThemeBinding Light={StaticResource BorderStrokeLight},Dark={StaticResource BorderStrokeDark}}" StrokeThickness="3">
+                <VerticalStackLayout Spacing="10"
+                               Margin="10"
+                             HorizontalOptions="Center">
+                    <Label Text="{x:Static texts:TextsResource.SetGeo}"
+                   FontSize="15"
+                   HorizontalOptions="CenterAndExpand"
+                   TextColor="{AppThemeBinding Light={StaticResource TextColorLight}, Dark={StaticResource TextColorDark}}"/>
+                    <Switch HorizontalOptions="CenterAndExpand"
+                    HeightRequest="20"
+                    WidthRequest="20"
+                Toggled="Switch_Toggled"
+                    x:Name="geolocationSwitch"
+                    OnColor="{AppThemeBinding Light={StaticResource OnColorLight}, Dark={StaticResource OnColorDark}}"
+                    ThumbColor="{AppThemeBinding Light={StaticResource ThumbColorLight}, Dark={StaticResource ThumbColorDark}}"
+                    Margin="10"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Padding="10" HeightRequest="250" 
+                Background="{AppThemeBinding Light={StaticResource BorderBackgroundLight}, Dark={StaticResource BorderBackgroundDark}}"
+                Margin="10,20,10,10"
+                Stroke="{AppThemeBinding Light={StaticResource BorderStrokeLight}, Dark={StaticResource BorderStrokeDark}}">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="20,20,20,20" />
+                </Border.StrokeShape>
+
+                <VerticalStackLayout>
+                    <Label Text="{x:Static texts:TextsResource.LangExplain }"
+               HorizontalOptions="Center"
+               HorizontalTextAlignment="Center"
+               VerticalOptions="Center"
+               Padding="10,0,10,0"
+               TextColor="{AppThemeBinding Light={StaticResource TextColorLight},Dark={StaticResource TextColorDark}}"/>
+
+                    <Label Text="{x:Static texts:TextsResource.LangDetail }"
+               HorizontalOptions="Center"
+               HorizontalTextAlignment="Center"
+               VerticalOptions="Center"
+               Padding="10,10,10,0"
+               TextColor="{AppThemeBinding Light={StaticResource TextColorLight},Dark={StaticResource TextColorDark}}"/>
+
+                    <Border Margin="10,40,10,10" HeightRequest="70" WidthRequest="250"
+                            Stroke="{AppThemeBinding Light={StaticResource BorderStrokeLight}, Dark={StaticResource BorderStrokeDark}}"
+                            Background="{AppThemeBinding Light={StaticResource BorderBackgroundLight},Dark={StaticResource BorderBackgroundDark}}">
+
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="10,10,10,10" />
+                        </Border.StrokeShape>
+
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ViewLanguagesTap" />
+                        </Border.GestureRecognizers>
+                        <Label x:Name="lblMore" Text="{x:Static texts:TextsResource.ViewLang }"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        TextColor="{AppThemeBinding Light={StaticResource TextColorLight},Dark={StaticResource TextColorDark}}" />
+                    </Border>
+                </VerticalStackLayout>
+            </Border>
+
+            <VerticalStackLayout x:Name="layoutLanguage" IsVisible="False">
+                <Border WidthRequest="300"
+                        HeightRequest="70" Background="{AppThemeBinding Light={StaticResource BorderBackgroundLight}, Dark={StaticResource BorderBackgroundDark}}"
+                        Stroke="{AppThemeBinding Light={StaticResource BorderStrokeLight},Dark={StaticResource BorderStrokeDark}}"
+                        Margin="10">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10,10,10,10" />
+                    </Border.StrokeShape>
+                    <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
+                        <Image Source="https://cdn-icons-png.flaticon.com/512/323/323310.png"
+                                WidthRequest="40"/>
+                        <Label Text="English (United States)"
+                               VerticalOptions="Center"
+                        TextColor="{AppThemeBinding Light={StaticResource TextColorLight},Dark={StaticResource TextColorDark}}" />
+                    </HorizontalStackLayout>
+                </Border>
+                <Border WidthRequest="300"
+                        HeightRequest="70" Background="{AppThemeBinding Light={StaticResource BorderBackgroundLight}, Dark={StaticResource BorderBackgroundDark}}"
+                        Stroke="{AppThemeBinding Light={StaticResource BorderStrokeLight},Dark={StaticResource BorderStrokeDark}}"
+                        Margin="10">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10,10,10,10" />
+                    </Border.StrokeShape>
+                    <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
+                        <Image Source="https://cdn-icons-png.flaticon.com/512/197/197626.png"
+                                WidthRequest="40"/>
+                        <Label Text="Italiano (Italia)"
+                               VerticalOptions="Center"
+                        TextColor="{AppThemeBinding Light={StaticResource TextColorLight},Dark={StaticResource TextColorDark}}" />
+
+                    </HorizontalStackLayout>
+                </Border>
+                <Border WidthRequest="300"
+                        HeightRequest="70" Background="{AppThemeBinding Light={StaticResource BorderBackgroundLight}, Dark={StaticResource BorderBackgroundDark}}"
+                        Stroke="{AppThemeBinding Light={StaticResource BorderStrokeLight},Dark={StaticResource BorderStrokeDark}}"
+                        Margin="10">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10,10,10,10" />
+                    </Border.StrokeShape>
+                    <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
+                        <Image Source="https://cdn-icons-png.flaticon.com/512/197/197593.png"
+                                WidthRequest="40"/>
+                        <Label Text="Español (España)"
+                               VerticalOptions="Center"
+                        TextColor="{AppThemeBinding Light={StaticResource TextColorLight},Dark={StaticResource TextColorDark}}" />
+
+                    </HorizontalStackLayout>
+                </Border>
+
+                <Border WidthRequest="300"
+                        HeightRequest="70" Background="{AppThemeBinding Light={StaticResource BorderBackgroundLight}, Dark={StaticResource BorderBackgroundDark}}"
+                        Stroke="{AppThemeBinding Light={StaticResource BorderStrokeLight},Dark={StaticResource BorderStrokeDark}}"
+                        Margin="10">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10,10,10,10" />
+                    </Border.StrokeShape>
+                    <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
+                        <Image Source="https://cdn-icons-png.flaticon.com/512/197/197571.png"
+                                WidthRequest="40"/>
+                        <Label Text="Deutsch (Deutschland)"
+                               VerticalOptions="Center"
+                        TextColor="{AppThemeBinding Light={StaticResource TextColorLight},Dark={StaticResource TextColorDark}}" />
+
+                    </HorizontalStackLayout>
+                </Border>
+                <Border WidthRequest="300"
+                        HeightRequest="70" Background="{AppThemeBinding Light={StaticResource BorderBackgroundLight}, Dark={StaticResource BorderBackgroundDark}}"
+                        Stroke="{AppThemeBinding Light={StaticResource BorderStrokeLight},Dark={StaticResource BorderStrokeDark}}"
+                        Margin="10">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10,10,10,10" />
+                    </Border.StrokeShape>
+                    <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
+                        <Image Source="https://cdn-icons-png.flaticon.com/512/197/197560.png"
+                                WidthRequest="40"/>
+                        <Label Text="Français (France)"
+                               VerticalOptions="Center"
+                        TextColor="{AppThemeBinding Light={StaticResource TextColorLight},Dark={StaticResource TextColorDark}}" />
+
+                    </HorizontalStackLayout>
+                </Border>
+                <Border WidthRequest="300"
+                        HeightRequest="70" Background="{AppThemeBinding Light={StaticResource BorderBackgroundLight}, Dark={StaticResource BorderBackgroundDark}}"
+                        Stroke="{AppThemeBinding Light={StaticResource BorderStrokeLight},Dark={StaticResource BorderStrokeDark}}"
+                        Margin="10">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10,10,10,10" />
+                    </Border.StrokeShape>
+                    <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
+                        <Image Source="https://cdn-icons-png.flaticon.com/512/5372/5372974.png"
+                                WidthRequest="40"/>
+                        <Label Text="Português (Portugal)"
+                               VerticalOptions="Center"
+                        TextColor="{AppThemeBinding Light={StaticResource TextColorLight},Dark={StaticResource TextColorDark}}" />
+
+                    </HorizontalStackLayout>
+                </Border>
+                <Border WidthRequest="300"
+                        HeightRequest="70" Background="{AppThemeBinding Light={StaticResource BorderBackgroundLight}, Dark={StaticResource BorderBackgroundDark}}"
+                        Stroke="{AppThemeBinding Light={StaticResource BorderStrokeLight},Dark={StaticResource BorderStrokeDark}}"
+                        Margin="10">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10,10,10,10" />
+                    </Border.StrokeShape>
+                    <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
+                        <Image Source="https://cdn-icons-png.flaticon.com/512/197/197572.png"
+                                WidthRequest="40"/>
+                        <Label Text="Українська (Україна)"
+                               VerticalOptions="Center"
+                        TextColor="{AppThemeBinding Light={StaticResource TextColorLight},Dark={StaticResource TextColorDark}}" />
+
+                    </HorizontalStackLayout>
+                </Border>
+                <Border WidthRequest="300"
+                        HeightRequest="70" Background="{AppThemeBinding Light={StaticResource BorderBackgroundLight}, Dark={StaticResource BorderBackgroundDark}}"
+                        Stroke="{AppThemeBinding Light={StaticResource BorderStrokeLight},Dark={StaticResource BorderStrokeDark}}"
+                        Margin="10">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10,10,10,10" />
+                    </Border.StrokeShape>
+                    <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
+                        <Image Source="https://cdn-icons-png.flaticon.com/512/197/197408.png"
+                                WidthRequest="40"/>
+                        <Label Text="Русский (Россия)"
+                               VerticalOptions="Center"
+                        TextColor="{AppThemeBinding Light={StaticResource TextColorLight},Dark={StaticResource TextColorDark}}" />
+
+                    </HorizontalStackLayout>
+                </Border>
+                <Border WidthRequest="300"
+                        HeightRequest="70" Background="{AppThemeBinding Light={StaticResource BorderBackgroundLight}, Dark={StaticResource BorderBackgroundDark}}"
+                        Stroke="{AppThemeBinding Light={StaticResource BorderStrokeLight},Dark={StaticResource BorderStrokeDark}}"
+                        Margin="10">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10,10,10,10" />
+                    </Border.StrokeShape>
+                    <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
+                        <Image Source="https://cdn-icons-png.flaticon.com/512/197/197518.png"
+                                WidthRequest="40"/>
+                        <Label Text="Türkçe (Türkiye)"
+                               VerticalOptions="Center"
+                        TextColor="{AppThemeBinding Light={StaticResource TextColorLight},Dark={StaticResource TextColorDark}}" />
+
+                    </HorizontalStackLayout>
+                </Border>
+
+                <Border WidthRequest="300"
+                        HeightRequest="70" Background="{AppThemeBinding Light={StaticResource BorderBackgroundLight}, Dark={StaticResource BorderBackgroundDark}}"
+                        Stroke="{AppThemeBinding Light={StaticResource BorderStrokeLight},Dark={StaticResource BorderStrokeDark}}"
+                        Margin="10">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10,10,10,10" />
+                    </Border.StrokeShape>
+                    <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
+                        <Image Source="https://cdn-icons-png.flaticon.com/512/197/197604.png"
+                                WidthRequest="40"/>
+                        <Label Text="日本語（日本）"
+                               VerticalOptions="Center"
+                        TextColor="{AppThemeBinding Light={StaticResource TextColorLight},Dark={StaticResource TextColorDark}}" />
+
+                    </HorizontalStackLayout>
+                </Border>
+                <Border WidthRequest="300"
+                        HeightRequest="70" Background="{AppThemeBinding Light={StaticResource BorderBackgroundLight}, Dark={StaticResource BorderBackgroundDark}}"
+                        Stroke="{AppThemeBinding Light={StaticResource BorderStrokeLight},Dark={StaticResource BorderStrokeDark}}"
+                        Margin="10">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10,10,10,10" />
+                    </Border.StrokeShape>
+                    <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
+                        <Image Source="https://cdn-icons-png.flaticon.com/512/197/197375.png"
+                                WidthRequest="40"/>
+                        <Label Text="中文（中国）"
+                               VerticalOptions="Center"
+                        TextColor="{AppThemeBinding Light={StaticResource TextColorLight},Dark={StaticResource TextColorDark}}" />
+
+                    </HorizontalStackLayout>
+                </Border>
+                <Border WidthRequest="300"
+                        HeightRequest="70" Background="{AppThemeBinding Light={StaticResource BorderBackgroundLight}, Dark={StaticResource BorderBackgroundDark}}"
+                        Stroke="{AppThemeBinding Light={StaticResource BorderStrokeLight},Dark={StaticResource BorderStrokeDark}}"
+                        Margin="10">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10,10,10,10" />
+                    </Border.StrokeShape>
+                    <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
+                        <Image Source="https://cdn-icons-png.flaticon.com/512/197/197582.png"
+                                WidthRequest="40"/>
+                        <Label Text="한국어(대한민국)"
+                               VerticalOptions="Center"
+                        TextColor="{AppThemeBinding Light={StaticResource TextColorLight},Dark={StaticResource TextColorDark}}" />
+
+                    </HorizontalStackLayout>
+                </Border>
+                <Border WidthRequest="300"
+                        HeightRequest="70" Background="{AppThemeBinding Light={StaticResource BorderBackgroundLight}, Dark={StaticResource BorderBackgroundDark}}"
+                        Stroke="{AppThemeBinding Light={StaticResource BorderStrokeLight},Dark={StaticResource BorderStrokeDark}}"
+                        Margin="10">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10,10,10,10" />
+                    </Border.StrokeShape>
+                    <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
+                        <Image Source="https://cdn-icons-png.flaticon.com/512/3909/3909330.png"
+                                WidthRequest="40"/>
+                        <Label Text="Shqip (Shqipëri)"
+                               VerticalOptions="Center"
+                        TextColor="{AppThemeBinding Light={StaticResource TextColorLight},Dark={StaticResource TextColorDark}}" />
+
+                    </HorizontalStackLayout>
+                </Border>
+                <Border WidthRequest="300"
+                        HeightRequest="70" Background="{AppThemeBinding Light={StaticResource BorderBackgroundLight}, Dark={StaticResource BorderBackgroundDark}}"
+                        Stroke="{AppThemeBinding Light={StaticResource BorderStrokeLight},Dark={StaticResource BorderStrokeDark}}"
+                        Margin="10">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10,10,10,10" />
+                    </Border.StrokeShape>
+                    <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
+                        <Image Source="https://cdn-icons-png.flaticon.com/512/5111/5111777.png"
+                                WidthRequest="40"/>
+                        <Label Text="العربية (المملكة العربية السعودية)"
+                               VerticalOptions="Center"
+                        TextColor="{AppThemeBinding Light={StaticResource TextColorLight},Dark={StaticResource TextColorDark}}" />
+
+                    </HorizontalStackLayout>
+                </Border>
+                
+                <Border WidthRequest="300"
+                        HeightRequest="70" Background="{AppThemeBinding Light={StaticResource BorderBackgroundLight}, Dark={StaticResource BorderBackgroundDark}}"
+                        Stroke="{AppThemeBinding Light={StaticResource BorderStrokeLight},Dark={StaticResource BorderStrokeDark}}"
+                        Margin="10">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10,10,10,10" />
+                    </Border.StrokeShape>
+                    <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
+                        <Image Source="https://cdn-icons-png.flaticon.com/512/197/197503.png"
+                                WidthRequest="40"/>
+                        <Label Text="Hrvatski (Hrvatska)"
+                               VerticalOptions="Center"
+                        TextColor="{AppThemeBinding Light={StaticResource TextColorLight},Dark={StaticResource TextColorDark}}" />
+
+                    </HorizontalStackLayout>
+                </Border>
+                <Border WidthRequest="300"
+                        HeightRequest="70" Background="{AppThemeBinding Light={StaticResource BorderBackgroundLight}, Dark={StaticResource BorderBackgroundDark}}"
+                        Stroke="{AppThemeBinding Light={StaticResource BorderStrokeLight},Dark={StaticResource BorderStrokeDark}}"
+                        Margin="10">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10,10,10,10" />
+                    </Border.StrokeShape>
+                    <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
+                        <Image Source="https://cdn-icons-png.flaticon.com/512/197/197441.png"
+                                WidthRequest="40"/>
+                        <Label Text="Nederlands (Nederland)"
+                               VerticalOptions="Center"
+                        TextColor="{AppThemeBinding Light={StaticResource TextColorLight},Dark={StaticResource TextColorDark}}" />
+
+                    </HorizontalStackLayout>
+                </Border>
+                <Border WidthRequest="300"
+                        HeightRequest="70" Background="{AppThemeBinding Light={StaticResource BorderBackgroundLight}, Dark={StaticResource BorderBackgroundDark}}"
+                        Stroke="{AppThemeBinding Light={StaticResource BorderStrokeLight},Dark={StaticResource BorderStrokeDark}}"
+                        Margin="10">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10,10,10,10" />
+                    </Border.StrokeShape>
+                    <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
+                        <Image Source="https://cdn-icons-png.flaticon.com/512/197/197529.png"
+                                WidthRequest="40"/>
+                        <Label Text="Polski (Polska)"
+                               VerticalOptions="Center"
+                        TextColor="{AppThemeBinding Light={StaticResource TextColorLight},Dark={StaticResource TextColorDark}}" />
+
+                    </HorizontalStackLayout>
+                </Border>
+                
+                <Border WidthRequest="300"
+                        HeightRequest="70" Background="{AppThemeBinding Light={StaticResource BorderBackgroundLight}, Dark={StaticResource BorderBackgroundDark}}"
+                        Stroke="{AppThemeBinding Light={StaticResource BorderStrokeLight},Dark={StaticResource BorderStrokeDark}}"
+                        Margin="10">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10,10,10,10" />
+                    </Border.StrokeShape>
+                    <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
+                        <Image Source="https://cdn-icons-png.flaticon.com/512/197/197585.png"
+                                WidthRequest="40"/>
+                        <Label Text="Suomi (Suomi)"
+                               VerticalOptions="Center"
+                        TextColor="{AppThemeBinding Light={StaticResource TextColorLight},Dark={StaticResource TextColorDark}}" />
+
+                    </HorizontalStackLayout>
+                </Border>
+                <Border WidthRequest="300"
+                        HeightRequest="70" Background="{AppThemeBinding Light={StaticResource BorderBackgroundLight}, Dark={StaticResource BorderBackgroundDark}}"
+                        Stroke="{AppThemeBinding Light={StaticResource BorderStrokeLight},Dark={StaticResource BorderStrokeDark}}"
+                        Margin="10">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10,10,10,10" />
+                    </Border.StrokeShape>
+                    <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
+                        <Image Source="https://cdn-icons-png.flaticon.com/512/197/197564.png"
+                                WidthRequest="40"/>
+                        <Label Text="Svenska (Sverige)"
+                               VerticalOptions="Center"
+                        TextColor="{AppThemeBinding Light={StaticResource TextColorLight},Dark={StaticResource TextColorDark}}" />
+
+                    </HorizontalStackLayout>
+                </Border>
+                
+                
+                <Border WidthRequest="300"
+                        HeightRequest="70" Background="{AppThemeBinding Light={StaticResource BorderBackgroundLight}, Dark={StaticResource BorderBackgroundDark}}"
+                        Stroke="{AppThemeBinding Light={StaticResource BorderStrokeLight},Dark={StaticResource BorderStrokeDark}}"
+                        Margin="10">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10,10,10,10" />
+                    </Border.StrokeShape>
+                    <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
+                        <Image Source="https://cdn-icons-png.flaticon.com/512/197/197602.png"
+                                WidthRequest="40"/>
+                        <Label Text="Cрпски (Србија)"
+                               VerticalOptions="Center"
+                        TextColor="{AppThemeBinding Light={StaticResource TextColorLight},Dark={StaticResource TextColorDark}}" />
+
+                    </HorizontalStackLayout>
+                </Border>
+            </VerticalStackLayout>
+
+            
+            <Label Text="{x:Static texts:TextsResource.DevelopedBy}"
+               HorizontalOptions="Center"
+               Padding="10"
+               VerticalOptions="End"
+               FontSize="Micro"
+               TextColor="{AppThemeBinding Light={StaticResource TextColorLight}, Dark={StaticResource TextColorDark}}" />
+
+            <Label Text="{x:Static texts:TextsResource.Month}"
+               HorizontalOptions="Center"
+               Padding="0"
+               VerticalOptions="End"
+               FontSize="Micro"
+               TextColor="{AppThemeBinding Light={StaticResource TextColorLight}, Dark={StaticResource TextColorDark}}" />
+
+            <Label Text="Greppi Meteo"
+               HorizontalOptions="Center"
+               Padding="20"
+               VerticalOptions="End"
+               FontSize="Medium"
+               TextColor="{AppThemeBinding Light={StaticResource TextColorLight}, Dark={StaticResource TextColorDark}}" />
+
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
