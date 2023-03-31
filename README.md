@@ -5,7 +5,7 @@ Weather application for Android created using .NET MAUI for a school project.
 # Techologies Used
 .NET MAUI
 
-#NuGet Packages Used
+# NuGet Packages Used
 * CommunityToolkit.Maui
 * CommunityToolkit.Mvvm
 
@@ -56,24 +56,32 @@ After that, the app should be ready to run.
 * Ukrainian
 
 # Light Screen
-![light3](https://user-images.githubusercontent.com/91477664/229207000-9e472c75-9144-49ad-8ee8-caacb4c24046.jpeg)
-![light1](https://user-images.githubusercontent.com/91477664/229207038-29a92006-f8e6-4088-aa82-5c2c09809c4c.jpeg)
-![light2](https://user-images.githubusercontent.com/91477664/229207058-88b71938-83f2-485c-8173-72f7612b7793.jpeg)
-![light4](https://user-images.githubusercontent.com/91477664/229207085-01514ab6-af7a-4f13-a6f6-f9a7ba37fe7a.jpeg)
+<img src="https://user-images.githubusercontent.com/91477664/229207000-9e472c75-9144-49ad-8ee8-caacb4c24046.jpeg" width="174" height="386">
+
+<img src="https://user-images.githubusercontent.com/91477664/229207038-29a92006-f8e6-4088-aa82-5c2c09809c4c.jpeg" width="174" height="386">
+
+<img src="https://user-images.githubusercontent.com/91477664/229207058-88b71938-83f2-485c-8173-72f7612b7793.jpeg" width="174" height="386">
+
+<img src="https://user-images.githubusercontent.com/91477664/229207085-01514ab6-af7a-4f13-a6f6-f9a7ba37fe7a.jpeg" width="174" height="386">
+
 
 # Dark Screen
-![dark1](https://user-images.githubusercontent.com/91477664/229207318-e47e206e-3e30-45ee-bc22-2dad06ba9f1d.jpeg)
-![dark2](https://user-images.githubusercontent.com/91477664/229207329-e2bcc14f-8eb7-4d9b-83ec-b67fc35ec17e.jpeg)
-![dark3](https://user-images.githubusercontent.com/91477664/229207345-f6054e6e-ec18-4a9e-8c02-ad1a62b06cab.jpeg)
-![dark4](https://user-images.githubusercontent.com/91477664/229207366-0585f996-4b43-4704-88e1-6e166c452ae6.jpeg)
+<img src="https://user-images.githubusercontent.com/91477664/229207318-e47e206e-3e30-45ee-bc22-2dad06ba9f1d.jpeg" width="174" height="386">
+
+<img src="https://user-images.githubusercontent.com/91477664/229207329-e2bcc14f-8eb7-4d9b-83ec-b67fc35ec17e.jpeg" width="174" height="386">
+
+<img src="https://user-images.githubusercontent.com/91477664/229207345-f6054e6e-ec18-4a9e-8c02-ad1a62b06cab.jpeg" width="174" height="386">
+
+<img src="https://user-images.githubusercontent.com/91477664/229207366-0585f996-4b43-4704-88e1-6e166c452ae6.jpeg" width="174" height="386">
+
 
 
 # Useful links
-https://openweathermap.org/api
-https://openweathermap.org/api/one-call-api
-https://learn.microsoft.com/en-us/dotnet/maui/what-is-maui?view=net-maui-7.0
-https://github.com/CommunityToolkit/Maui
-https://github.com/CommunityToolkit/MVVM-Samples
+* https://openweathermap.org/api
+* https://openweathermap.org/api/one-call-api
+* https://learn.microsoft.com/en-us/dotnet/maui/what-is-maui?view=net-maui-7.0
+* https://github.com/CommunityToolkit/Maui
+* https://github.com/CommunityToolkit/MVVM-Samples
 
 
 
