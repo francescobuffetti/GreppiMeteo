@@ -2,7 +2,7 @@
 
 Weather application for Android created using .NET MAUI for a school project.
 
-# Techologies Used
+# Technologies Used
 .NET MAUI
 
 # NuGet Packages Used
